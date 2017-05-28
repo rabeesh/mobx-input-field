@@ -1,6 +1,9 @@
-# mobx-input-field, configureable validation store [mobx](https://github.com/mobxjs/mobx)
+# mobx-input-field
 
-Configurable validation store on top of `mobx`, `mobx-react`, and [validator.js](https://github.com/chriso/validator.js/). You can simply add your own custom rules.
+mobx-input-field, configureable validation store on top of `mobx`, `mobx-react`, and [validator.js](https://github.com/chriso/validator.js/). You can simply add your own custom rules.
+
+## Installation
+```npm install --save mobx-input-field```
 
 ## input store
 ```js
@@ -67,16 +70,55 @@ const validated = validatedGroup({
 })
 ```
 
+## Validation methods
+
+It will supports validation methods of [validator.js](https://github.com/chriso/validator.js/).
+
+```js
+// validator js function `isAscii` can be defined as
+field().rule({
+  ascii: {
+    'message': 'Title is invalid'
+  }
+})
+
+// validator js function `isAscii`
+field().rule({
+  isAscii: {
+    'message': 'Title is invalid'
+  }
+})
+
+```
+
+
 ## Usage - Example Form
 ```js
 export default class Address extends Component {
 
   constructor(params) {
     super(params)
+    this.submit = this.submit.bind(this)
   }
 
+  submit() {
+    // show validation error
+    const { validated } = this.props
+
+    // show errors on submit click
+    validated.showError = true
+    if (validated.errors.length > 0) {
+      return false
+    }
+
+    // print json data
+    console.log(validated.toJS())
+  }
+
+
   render() {
-    const { fields } = this.props
+    const { validated } = this.props
+    const fields = validated.fields
 
     return (
       <form>
@@ -147,11 +189,12 @@ export default class Address extends Component {
           </Field>
           <fields.country.Error />
         </div>
+
+        <button onClick={this.submit}>Submit</button>
       </form>
     )
   }
 }
 ```
 
-
-MIT
+### MIT

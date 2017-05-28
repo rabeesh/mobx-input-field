@@ -1,11 +1,15 @@
 {
   "name": "mobx-input-field",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "Input validation store in mobx",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rabeesh/mobx-input-field"
   },
   "author": "Rab <rabeeshkumar@gmail.com>",
   "license": "MIT",
